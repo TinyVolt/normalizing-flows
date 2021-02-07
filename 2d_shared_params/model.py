@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torch.distributions.normal import Normal
 
 class MaskedConv2d(nn.Conv2d):
     def __init__(self, include_base_point, *args, **kwargs):
@@ -37,16 +38,40 @@ class AutoRegressiveFlow(nn.Module):
         first_layer = MaskedConv2d(False, num_channels_input, num_channels_intermediate, kernel_size=kernel_size, padding=kernel_size//2, **kwargs)
         model = [first_layer]
         block = lambda: MaskedConv2d(True, num_channels_intermediate, num_channels_intermediate, kernel_size=kernel_size, padding=kernel_size//2, **kwargs)
+
         for _ in range(num_layers):
             model.append(LayerNorm(num_channels_intermediate))
             model.append(nn.ReLU())
             model.append(block())
+
         second_last_layer = MaskedConv2d(True, num_channels_intermediate, num_channels_intermediate, 1, **kwargs)
         last_layer = MaskedConv2d(True, num_channels_intermediate, n_components * 3 * num_channels_input, 1, **kwargs)
         model.append(second_last_layer)
         model.append(last_layer)
 
         self.model = nn.Sequential(*model)
+        self.n_components = n_components
 
     def forward(self, x):
-        return self.model(x)
+        batch_size, c_in = x.size(0), x.size(1) # x.size() is (B, c_in, h, w)
+        h_and_w = x.size()[2:]
+        out = self.model(x) # out.size() is (B, c_in * 3 * n_components, h, w)
+        mus, log_sigmas, weight_logits = torch.chunk(out, 3, dim=1) # (B, c_in * n_components, h, w)
+
+        # sizes are (B, c_in, n_components, h, w)
+        mus = mus.view(batch_size, c_in, self.n_components, *h_and_w)
+        log_sigmas = log_sigmas.view(batch_size, c_in, self.n_components, *h_and_w)
+        weight_logits = weight_logits.view(batch_size, c_in, self.n_components, *h_and_w)
+        weights = F.softmax(weight_logits, dim=1)
+
+        distribution = Normal(mus, log_sigmas.exp())
+
+        x = x.unsqueeze(2) # x.size() is (B, c_in, 1, h, w)
+        z = distribution.cdf(x) # z.size() is (B, c_in, n_components, h, w)
+        z = (z * weights).sum(2).view(batch_size, c_in, *h_and_w) # z.size() is (B, c_in, h, w)
+
+        dz_by_dx = (distribution.log_prob(x).exp() * weights).sum(2).view(batch_size, c_in, *h_and_w)
+
+        return z, dz_by_dx
+        
+        
