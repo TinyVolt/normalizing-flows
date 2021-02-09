@@ -18,6 +18,7 @@ def train(model, train_loader, optimizer, target_distribution):
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
+        if i % 10 == 0: print('Loss at iteration {} is {}'.format(i, loss.cpu().item()))
 
 def eval_loss(model, data_loader, target_distribution):
     model.eval()
@@ -35,6 +36,7 @@ def train_and_eval(epochs, lr, train_loader, test_loader, target_distribution):
     optimizer = torch.optim.Adam(flow.parameters(), lr=lr)
     train_losses, test_losses = [], []
     for epoch in range(epochs):
+        print('Starting epoch:', epoch, 'of', epochs)
         train(flow, train_loader, optimizer, target_distribution)
         train_losses.append(eval_loss(flow, train_loader, target_distribution))
         test_losses.append(eval_loss(flow, test_loader, target_distribution))
@@ -45,7 +47,8 @@ if __name__ == '__main__':
     from torch.distributions.uniform import Uniform
     import numpy as np
 
-    target_distribution = Uniform(0,1)
-    flow, train_losses, test_losses = train_and_eval(20, 1e-3, train_loader, test_loader, target_distribution)
+    target_distribution = Uniform(torch.tensor(0).float().to(device),torch.tensor(1).float().to(device))
+    flow, train_losses, test_losses = train_and_eval(2, 1e-4, train_loader, test_loader, target_distribution)
     print('train losses are', train_losses)
     print('test losses are', test_losses)
+    torch.save(flow.state_dict(), 'trained_weights.pt')
