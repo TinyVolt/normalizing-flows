@@ -58,20 +58,20 @@ class AutoRegressiveFlow(nn.Module):
         out = self.model(x) # out.size() is (B, c_in * 3 * n_components, h, w)
         mus, log_sigmas, weight_logits = torch.chunk(out, 3, dim=1) # (B, c_in * n_components, h, w)
 
-        # sizes are (B, c_in, n_components, h, w)
-        mus = mus.view(batch_size, c_in, self.n_components, *h_and_w)
-        log_sigmas = log_sigmas.view(batch_size, c_in, self.n_components, *h_and_w)
-        weight_logits = weight_logits.view(batch_size, c_in, self.n_components, *h_and_w)
+        # sizes are (B, n_components, c_in, h, w)
+        mus = mus.view(batch_size, self.n_components, c_in, *h_and_w)
+        log_sigmas = log_sigmas.view(batch_size, self.n_components, c_in, *h_and_w)
+        weight_logits = weight_logits.view(batch_size, self.n_components, c_in, *h_and_w)
         weights = F.softmax(weight_logits, dim=1)
 
         distribution = Normal(mus, log_sigmas.exp())
 
-        x = x.unsqueeze(2) # x.size() is (B, c_in, 1, h, w)
-        z = distribution.cdf(x) # z.size() is (B, c_in, n_components, h, w)
-        z = (z * weights).sum(2).view(batch_size, c_in, *h_and_w) # z.size() is (B, c_in, h, w)
+        x = x.unsqueeze(1) # x.size() is (B, 1, c_in, h, w)
+        z = distribution.cdf(x) # z.size() is (B, n_components, c_in, h, w)
+        z = (z * weights).sum(1).view(batch_size, c_in, *h_and_w) # z.size() is (B, c_in, h, w)
 
-        dz_by_dx = (distribution.log_prob(x).exp() * weights).sum(2).view(batch_size, c_in, *h_and_w)
+        log_dz_by_dx = (distribution.log_prob(x).exp() * weights).sum(1).view(batch_size, c_in, *h_and_w).log()
 
-        return z, dz_by_dx
+        return z, log_dz_by_dx
         
         

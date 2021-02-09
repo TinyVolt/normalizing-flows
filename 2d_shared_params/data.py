@@ -23,7 +23,7 @@ class ShapesDataset(Dataset):
         result = self.array[index]
         result = np.transpose(result, (2,0,1)) 
         result += np.random.uniform(high=0.25, size=result.shape)
-        return result
+        return result/2.0
 
 train_loader = DataLoader(ShapesDataset(training_data), shuffle=True, batch_size=128)
 test_loader = DataLoader(ShapesDataset(testing_data), shuffle=True, batch_size=128)
