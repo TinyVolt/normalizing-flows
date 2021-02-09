@@ -14,7 +14,7 @@ testing_data = (testing_data > 127.5).astype(np.uint8)
 
 class ShapesDataset(Dataset):
     def __init__(self, array):
-        self.array = array.astype(np.float32)
+        self.array = array.astype(np.float32) / 2.0
 
     def __len__(self):
         return len(self.array)
@@ -23,7 +23,7 @@ class ShapesDataset(Dataset):
         result = self.array[index]
         result = np.transpose(result, (2,0,1)) 
         result += np.random.uniform(high=0.25, size=result.shape)
-        return result/2.0
+        return result
 
 train_loader = DataLoader(ShapesDataset(training_data), shuffle=True, batch_size=128)
 test_loader = DataLoader(ShapesDataset(testing_data), shuffle=True, batch_size=128)
