@@ -6,6 +6,7 @@ from data import train_loader, test_loader
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 def loss_function(target_distribution, z, log_dz_by_dx):
+    assert target_distribution.log_prob(z).sum().cpu().item() == 0, print('this sum should be zero', target_distribution.log_prob(z).sum().cpu().item())
     log_likelihood = target_distribution.log_prob(z) + log_dz_by_dx
     return -log_likelihood.mean()
 
