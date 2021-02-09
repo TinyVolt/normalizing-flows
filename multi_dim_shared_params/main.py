@@ -3,6 +3,8 @@ import torch
 from model import AutoRegressiveFlow
 from data import train_loader, test_loader
 
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
 def loss_function(target_distribution, z, log_dz_by_dx):
     log_likelihood = target_distribution.log_prob(z) + log_dz_by_dx
     return -log_likelihood.mean()
@@ -10,6 +12,7 @@ def loss_function(target_distribution, z, log_dz_by_dx):
 def train(model, train_loader, optimizer, target_distribution):
     model.train()
     for i, x in enumerate(train_loader):
+        x = x.to(device)
         z, log_dz_by_dx = model(x)
         loss = loss_function(target_distribution, z, log_dz_by_dx)
         optimizer.zero_grad()
@@ -19,14 +22,16 @@ def train(model, train_loader, optimizer, target_distribution):
 def eval_loss(model, data_loader, target_distribution):
     model.eval()
     total_loss = 0
-    for x in data_loader:
-        z, log_dz_by_dx = model(x)
-        loss = loss_function(target_distribution, z, log_dz_by_dx)
-        total_loss += loss * x.size(0)
-    return (total_loss / len(data_loader.dataset)).item()
+    with torch.no_grad():
+        for x in data_loader:
+            x = x.to(device)
+            z, log_dz_by_dx = model(x)
+            loss = loss_function(target_distribution, z, log_dz_by_dx)
+            total_loss += loss * x.size(0)
+    return (total_loss / len(data_loader.dataset)).cpu().item()
 
 def train_and_eval(epochs, lr, train_loader, test_loader, target_distribution):
-    flow = AutoRegressiveFlow(1, num_layers=5, n_components=10)
+    flow = AutoRegressiveFlow(1, num_layers=5, n_components=10).to(device)
     optimizer = torch.optim.Adam(flow.parameters(), lr=lr)
     train_losses, test_losses = [], []
     for epoch in range(epochs):
@@ -34,3 +39,13 @@ def train_and_eval(epochs, lr, train_loader, test_loader, target_distribution):
         train_losses.append(eval_loss(flow, train_loader, target_distribution))
         test_losses.append(eval_loss(flow, test_loader, target_distribution))
     return flow, train_losses, test_losses
+
+if __name__ == '__main__':
+    print('Device is:', device)
+    from torch.distributions.uniform import Uniform
+    import numpy as np
+
+    target_distribution = Uniform(0,1)
+    flow, train_losses, test_losses = train_and_eval(20, 1e-3, train_loader, test_loader, target_distribution)
+    print('train losses are', train_losses)
+    print('test losses are', test_losses)

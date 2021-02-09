@@ -68,9 +68,9 @@ class AutoRegressiveFlow(nn.Module):
 
         x = x.unsqueeze(1) # x.size() is (B, 1, c_in, h, w)
         z = distribution.cdf(x) # z.size() is (B, n_components, c_in, h, w)
-        z = (z * weights).sum(1).view(batch_size, c_in, *h_and_w) # z.size() is (B, c_in, h, w)
+        z = (z * weights).sum(1) # z.size() is (B, c_in, h, w)
 
-        log_dz_by_dx = (distribution.log_prob(x).exp() * weights).sum(1).view(batch_size, c_in, *h_and_w).log()
+        log_dz_by_dx = (distribution.log_prob(x).exp() * weights).sum(1).log()
 
         return z, log_dz_by_dx
         
