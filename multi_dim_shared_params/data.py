@@ -22,7 +22,7 @@ class ShapesDataset(Dataset):
     def __getitem__(self, index):
         result = self.array[index]
         result = np.transpose(result, (2,0,1)) 
-        result += np.random.uniform(high=0.25, size=result.shape)
+        result += np.random.uniform(low=0, high=0.25, size=result.shape)
         return result
 
 train_loader = DataLoader(ShapesDataset(training_data), shuffle=True, batch_size=128)

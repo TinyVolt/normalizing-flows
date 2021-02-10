@@ -34,6 +34,7 @@ def eval_loss(model, data_loader, target_distribution):
 
 def train_and_eval(epochs, lr, train_loader, test_loader, target_distribution):
     flow = AutoRegressiveFlow(1, num_layers=5, n_components=10).to(device)
+    print('no of parameters is', sum(param.numel() for param in flow.parameters()))
     optimizer = torch.optim.Adam(flow.parameters(), lr=lr)
     train_losses, test_losses = [], []
     for epoch in range(epochs):
@@ -49,7 +50,7 @@ if __name__ == '__main__':
     import numpy as np
 
     target_distribution = Uniform(torch.tensor(0).float().to(device),torch.tensor(1).float().to(device))
-    flow, train_losses, test_losses = train_and_eval(2, 1e-4, train_loader, test_loader, target_distribution)
+    flow, train_losses, test_losses = train_and_eval(3, 1e-4, train_loader, test_loader, target_distribution)
     print('train losses are', train_losses)
     print('test losses are', test_losses)
     torch.save(flow.state_dict(), 'trained_weights.pt')
