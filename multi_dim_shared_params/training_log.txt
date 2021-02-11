@@ -1,0 +1,204 @@
+Device is: cuda
+no of parameters is 1013790
+Starting epoch: 1 of 20
+Loss at iteration 0 is 1.091932773590088
+Loss at iteration 10 is 0.7161474227905273
+Loss at iteration 20 is 0.5162310004234314
+Loss at iteration 30 is -0.3189074397087097
+Loss at iteration 40 is 0.12935443222522736
+Loss at iteration 50 is -0.2564696967601776
+Loss at iteration 60 is -0.43263640999794006
+Loss at iteration 70 is -0.2691916525363922
+Loss at iteration 80 is -0.24473166465759277
+Starting epoch: 2 of 20
+Loss at iteration 0 is -0.3809620440006256
+Loss at iteration 10 is -0.39612895250320435
+Loss at iteration 20 is -0.10382004827260971
+Loss at iteration 30 is -0.5374385118484497
+Loss at iteration 40 is -0.6039278507232666
+Loss at iteration 50 is -0.7490646243095398
+Loss at iteration 60 is -0.6734687685966492
+Loss at iteration 70 is -0.6695991158485413
+Loss at iteration 80 is -0.6588898301124573
+Starting epoch: 3 of 20
+Loss at iteration 0 is -0.7307928204536438
+Loss at iteration 10 is -0.8655126690864563
+Loss at iteration 20 is -0.9825650453567505
+Loss at iteration 30 is -0.4459715187549591
+Loss at iteration 40 is -0.47351157665252686
+Loss at iteration 50 is -0.6131142377853394
+Loss at iteration 60 is -0.842667818069458
+Loss at iteration 70 is -0.9799039959907532
+Loss at iteration 80 is -1.0622141361236572
+Starting epoch: 4 of 20
+Loss at iteration 0 is -1.0263320207595825
+Loss at iteration 10 is -0.9707350134849548
+Loss at iteration 20 is -1.0059728622436523
+Loss at iteration 30 is -1.0638549327850342
+Loss at iteration 40 is -0.8540186882019043
+Loss at iteration 50 is -0.7510511875152588
+Loss at iteration 60 is -0.9351525902748108
+Loss at iteration 70 is -1.0076087713241577
+Loss at iteration 80 is -1.0325597524642944
+Starting epoch: 5 of 20
+Loss at iteration 0 is -1.0535187721252441
+Loss at iteration 10 is -1.0524959564208984
+Loss at iteration 20 is -1.0607136487960815
+Loss at iteration 30 is -1.0687625408172607
+Loss at iteration 40 is -1.0721497535705566
+Loss at iteration 50 is -1.0784616470336914
+Loss at iteration 60 is -1.0780667066574097
+Loss at iteration 70 is -1.0782113075256348
+Loss at iteration 80 is -1.086782693862915
+Starting epoch: 6 of 20
+Loss at iteration 0 is -1.0931977033615112
+Loss at iteration 10 is -1.1076297760009766
+Loss at iteration 20 is -1.120302438735962
+Loss at iteration 30 is -1.0886378288269043
+Loss at iteration 40 is -0.9204902648925781
+Loss at iteration 50 is -0.9121586680412292
+Loss at iteration 60 is -1.02175772190094
+Loss at iteration 70 is -1.0618847608566284
+Loss at iteration 80 is -1.0944039821624756
+Starting epoch: 7 of 20
+Loss at iteration 0 is -1.0873106718063354
+Loss at iteration 10 is -1.0977712869644165
+Loss at iteration 20 is -1.1014245748519897
+Loss at iteration 30 is -1.1031242609024048
+Loss at iteration 40 is -1.1076916456222534
+Loss at iteration 50 is -1.1091784238815308
+Loss at iteration 60 is -1.1133790016174316
+Loss at iteration 70 is -1.1032570600509644
+Loss at iteration 80 is -1.1113765239715576
+Starting epoch: 8 of 20
+Loss at iteration 0 is -1.1113789081573486
+Loss at iteration 10 is -1.113649606704712
+Loss at iteration 20 is -1.1089122295379639
+Loss at iteration 30 is -1.1115291118621826
+Loss at iteration 40 is -1.12108314037323
+Loss at iteration 50 is -1.1088403463363647
+Loss at iteration 60 is -1.140328288078308
+Loss at iteration 70 is -1.1402344703674316
+Loss at iteration 80 is -1.139475703239441
+Starting epoch: 9 of 20
+Loss at iteration 0 is -1.0281704664230347
+Loss at iteration 10 is -1.0860191583633423
+Loss at iteration 20 is -1.1197223663330078
+Loss at iteration 30 is -1.1291917562484741
+Loss at iteration 40 is -1.1289061307907104
+Loss at iteration 50 is -1.1492682695388794
+Loss at iteration 60 is -1.1562700271606445
+Loss at iteration 70 is -1.0943635702133179
+Loss at iteration 80 is -1.1104379892349243
+Starting epoch: 10 of 20
+Loss at iteration 0 is -1.1337339878082275
+Loss at iteration 10 is -1.1505863666534424
+Loss at iteration 20 is -1.1432336568832397
+Loss at iteration 30 is -1.1381268501281738
+Loss at iteration 40 is -1.0851010084152222
+Loss at iteration 50 is -1.0556299686431885
+Loss at iteration 60 is -1.0684802532196045
+Loss at iteration 70 is -1.082498550415039
+Loss at iteration 80 is -1.150445580482483
+Starting epoch: 11 of 20
+Loss at iteration 0 is -1.1519732475280762
+Loss at iteration 10 is -1.0724679231643677
+Loss at iteration 20 is -1.171222448348999
+Loss at iteration 30 is -1.0878709554672241
+Loss at iteration 40 is -1.1527466773986816
+Loss at iteration 50 is -1.147454857826233
+Loss at iteration 60 is -1.1067079305648804
+Loss at iteration 70 is -1.1753101348876953
+Loss at iteration 80 is -1.1759055852890015
+Starting epoch: 12 of 20
+Loss at iteration 0 is -1.1004050970077515
+Loss at iteration 10 is -1.1681782007217407
+Loss at iteration 20 is -1.1783673763275146
+Loss at iteration 30 is -1.160616397857666
+Loss at iteration 40 is -1.1587611436843872
+Loss at iteration 50 is -1.1754496097564697
+Loss at iteration 60 is -1.10502028465271
+Loss at iteration 70 is -1.1598039865493774
+Loss at iteration 80 is -1.1911838054656982
+Starting epoch: 13 of 20
+Loss at iteration 0 is -1.1457487344741821
+Loss at iteration 10 is -1.16373872756958
+Loss at iteration 20 is -1.1770848035812378
+Loss at iteration 30 is -1.1836644411087036
+Loss at iteration 40 is -1.1793289184570312
+Loss at iteration 50 is -1.2002263069152832
+Loss at iteration 60 is -1.1536871194839478
+Loss at iteration 70 is -1.1936092376708984
+Loss at iteration 80 is -1.1998454332351685
+Starting epoch: 14 of 20
+Loss at iteration 0 is -1.1954700946807861
+Loss at iteration 10 is -1.2037713527679443
+Loss at iteration 20 is -1.2091786861419678
+Loss at iteration 30 is -1.2114149332046509
+Loss at iteration 40 is -1.2058204412460327
+Loss at iteration 50 is -1.2032781839370728
+Loss at iteration 60 is -1.2103793621063232
+Loss at iteration 70 is -1.20280122756958
+Loss at iteration 80 is -1.2116905450820923
+Starting epoch: 15 of 20
+Loss at iteration 0 is -1.210054636001587
+Loss at iteration 10 is -1.1958798170089722
+Loss at iteration 20 is -1.1879174709320068
+Loss at iteration 30 is -1.182056188583374
+Loss at iteration 40 is -1.2010178565979004
+Loss at iteration 50 is -1.2124868631362915
+Loss at iteration 60 is -1.2179126739501953
+Loss at iteration 70 is -1.214458703994751
+Loss at iteration 80 is -1.2172352075576782
+Starting epoch: 16 of 20
+Loss at iteration 0 is -1.220001459121704
+Loss at iteration 10 is -1.2088072299957275
+Loss at iteration 20 is -1.2146788835525513
+Loss at iteration 30 is -1.2075971364974976
+Loss at iteration 40 is -1.2114338874816895
+Loss at iteration 50 is -1.2184324264526367
+Loss at iteration 60 is -1.2120692729949951
+Loss at iteration 70 is -1.2171201705932617
+Loss at iteration 80 is -1.2207963466644287
+Starting epoch: 17 of 20
+Loss at iteration 0 is -1.212597131729126
+Loss at iteration 10 is -1.2073328495025635
+Loss at iteration 20 is -1.2059153318405151
+Loss at iteration 30 is -1.2133548259735107
+Loss at iteration 40 is -1.202415108680725
+Loss at iteration 50 is -1.2030616998672485
+Loss at iteration 60 is -1.2127183675765991
+Loss at iteration 70 is -1.2215566635131836
+Loss at iteration 80 is -1.224806785583496
+Starting epoch: 18 of 20
+Loss at iteration 0 is -1.2250442504882812
+Loss at iteration 10 is -1.226262092590332
+Loss at iteration 20 is -1.2121440172195435
+Loss at iteration 30 is -1.2253464460372925
+Loss at iteration 40 is -1.2108409404754639
+Loss at iteration 50 is -1.2064014673233032
+Loss at iteration 60 is -1.226276159286499
+Loss at iteration 70 is -1.227918267250061
+Loss at iteration 80 is -1.1727819442749023
+Starting epoch: 19 of 20
+Loss at iteration 0 is -1.0837429761886597
+Loss at iteration 10 is -1.183760404586792
+Loss at iteration 20 is -1.2075600624084473
+Loss at iteration 30 is -1.2188849449157715
+Loss at iteration 40 is -1.2269254922866821
+Loss at iteration 50 is -1.2304118871688843
+Loss at iteration 60 is -1.2277641296386719
+Loss at iteration 70 is -1.2214534282684326
+Loss at iteration 80 is -1.2163691520690918
+Starting epoch: 20 of 20
+Loss at iteration 0 is -1.223559856414795
+Loss at iteration 10 is -1.2253625392913818
+Loss at iteration 20 is -1.20817232131958
+Loss at iteration 30 is -1.221048355102539
+Loss at iteration 40 is -1.2229888439178467
+Loss at iteration 50 is -1.2207889556884766
+Loss at iteration 60 is -1.2269929647445679
+Loss at iteration 70 is -1.2297859191894531
+Loss at iteration 80 is -1.2227720022201538
+train losses are [0.3226276636123657, -0.5994980335235596, -0.5958865284919739, -0.12649932503700256, 0.05588671565055847, -0.20001335442066193, -0.07649422436952591, -0.5343025326728821, 0.06043761223554611, -0.37508028745651245, -1.0885213613510132, -0.9862838983535767, 0.02185552567243576, -0.0811978131532669, -0.06212713569402695, -0.016512637957930565, -0.289078027009964, 0.029136545956134796, -0.413792222738266, -0.1489207148551941]
+test losses are [0.32305291295051575, -0.5996372103691101, -0.5962490439414978, -0.1273857057094574, 0.05469423159956932, -0.20053541660308838, -0.07687994092702866, -0.5347858667373657, 0.06017917022109032, -0.3753620982170105, -1.088416576385498, -0.9858648777008057, 0.022256869822740555, -0.08116332441568375, -0.06183593347668648, -0.016210002824664116, -0.2889273464679718, 0.028913624584674835, -0.41350799798965454, -0.14916999638080597]
