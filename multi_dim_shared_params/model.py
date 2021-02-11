@@ -58,11 +58,6 @@ class AutoRegressiveFlow(nn.Module):
         out = self.model(x) # out.size() is (B, c_in * 3 * n_components, h, w)
         out = out.view(batch_size, 3 * self.n_components, c_in, *h_and_w) # out.size() is (B, 3*n_components, c_in, h, w)
         mus, log_sigmas, weight_logits = torch.chunk(out, 3, dim=1) # (B, n_components, c_in, h, w)
-
-        # sizes are (B, n_components, c_in, h, w)
-        # mus = mus.view(batch_size, self.n_components, c_in, *h_and_w)
-        # log_sigmas = log_sigmas.view(batch_size, self.n_components, c_in, *h_and_w)
-        # weight_logits = weight_logits.view(batch_size, self.n_components, c_in, *h_and_w)
         weights = F.softmax(weight_logits, dim=1)
 
         distribution = Normal(mus, log_sigmas.exp())
