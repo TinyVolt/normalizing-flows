@@ -17,7 +17,7 @@ class MLP(nn.Module):
 
 
 class AffineTransform2D(nn.Module):
-    def __init__(self, left, hidden_size=256, num_hidden_layers=2):
+    def __init__(self, left, hidden_size=64, num_hidden_layers=2):
         super(AffineTransform2D, self).__init__()
         self.mlp = MLP(2, hidden_size, num_hidden_layers, 2)
         self.mask = torch.FloatTensor([1,0]) if left else torch.FloatTensor([0,1])
