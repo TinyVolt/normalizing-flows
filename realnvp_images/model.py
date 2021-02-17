@@ -11,9 +11,9 @@ class Preprocess(nn.Module):
         if reverse:
             return (x.sigmoid() - 0.05) / 0.9
         x += Uniform(0.0, 1.0).sample(x.size()).to(device)
-        x = 0.05 + 0.9 * x / 4.0
+        x = 0.05 + 0.9 * (x / 4.0)
         z = torch.log(x) - torch.log(1-x)
-        log_det_jacobian = -x.log() - (1-x).log() + torch.tensor(0.4/9).log().to(device)
+        log_det_jacobian = -x.log() - (1-x).log() + torch.tensor(0.9/4).log().to(device)
         return z, log_det_jacobian
 
 
@@ -71,6 +71,7 @@ class AffineCheckerboardTransform(nn.Module):
         return (mask % 2).unsqueeze(0).unsqueeze(0)
 
     def forward(self, x, reverse=False):
+        self.mask = self.mask.to(x.device)
         # x has size (batch_size, 3, height, width)
         x_masked = x * self.mask
         # log_scale and shift have size (batch_size, 3, height, width)
@@ -162,33 +163,60 @@ class BatchNorm(nn.Module):
             return z, log_det_jacobian
 
 
+class ActNorm(nn.Module):
+    def __init__(self, n_channels):
+        super(ActNorm, self).__init__()
+        self.log_scale = nn.Parameter(torch.zeros(1, n_channels, 1, 1), requires_grad=True)
+        self.shift = nn.Parameter(torch.zeros(1, n_channels, 1, 1), requires_grad=True)
+        self.n_channels = n_channels
+        self.initialized = False
+
+    def forward(self, x, reverse=False):
+        if reverse:
+            return (x - self.shift) * torch.exp(-self.log_scale)
+        else:
+            if not self.initialized:
+                self.shift.data = -torch.mean(x, dim=[0, 2, 3], keepdim=True)
+                self.log_scale.data = -torch.log( torch.std(x, [0,2,3], keepdim=True) )
+                self.initialized = True
+                result = x * torch.exp(self.log_scale) + self.shift
+            return x * torch.exp(self.log_scale) + self.shift, self.log_scale
+
+
 class RealNVP(nn.Module):
     def __init__(self, height, width):
         super(RealNVP, self).__init__()
         self.preprocess = Preprocess()
         self.transforms_checkered_1 = nn.ModuleList([
             AffineCheckerboardTransform(height, width, False),
-            BatchNorm(3),
+            # BatchNorm(3),
+            ActNorm(3),
             AffineCheckerboardTransform(height, width, True),
-            BatchNorm(3),
+            # BatchNorm(3),
+            ActNorm(3),
             AffineCheckerboardTransform(height, width, False),
-            BatchNorm(3),
+            # BatchNorm(3),
+            ActNorm(3),
             AffineCheckerboardTransform(height, width, True)
         ])
 
         self.transforms_channelwise = nn.ModuleList([
             AffineChannelwiseTransform(True),
-            BatchNorm(12),
+            # BatchNorm(12),
+            ActNorm(12),
             AffineChannelwiseTransform(False),
-            BatchNorm(12),
+            # BatchNorm(12),
+            ActNorm(12),
             AffineChannelwiseTransform(True),
         ])
 
         self.transforms_checkered_2 = nn.ModuleList([
             AffineCheckerboardTransform(height, width, False),
-            BatchNorm(3),
+            # BatchNorm(3),
+            ActNorm(3),
             AffineCheckerboardTransform(height, width, True),
-            BatchNorm(3),
+            # BatchNorm(3),
+            ActNorm(3),
             AffineCheckerboardTransform(height, width, False)
         ])
 
