@@ -26,5 +26,5 @@ class CelebDataset(Dataset):
         return self.array[index]
 
 
-train_loader = DataLoader(CelebDataset(training_data), shuffle=True, batch_size=64)
-test_loader = DataLoader(CelebDataset(testing_data), shuffle=True, batch_size=64)
+train_loader = DataLoader(CelebDataset(training_data), shuffle=True, batch_size=32)
+test_loader = DataLoader(CelebDataset(testing_data), shuffle=True, batch_size=32)

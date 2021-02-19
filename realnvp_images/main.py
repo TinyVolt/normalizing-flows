@@ -18,7 +18,7 @@ def train(model, train_loader, optimizer, target_distribution):
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-        if i%10 == 0: print('Loss at iteration {} is {}'.format(i, loss.cpu().item()))
+        if i%100 == 0: print('Loss at iteration {} is {}'.format(i, loss.cpu().item()))
 
 def eval_loss(model, data_loader, target_distribution):
     model.eval()
@@ -49,7 +49,7 @@ if __name__ == '__main__':
 
     flow = RealNVP(INPUT_H, INPUT_W).to(device)
     target_distribution = Normal(torch.tensor(0).float().to(device),torch.tensor(1).float().to(device))
-    flow, train_losses, test_losses = train_and_eval(flow, 1, 5e-4, train_loader, test_loader, target_distribution)
+    flow, train_losses, test_losses = train_and_eval(flow, 100, 5e-4, train_loader, test_loader, target_distribution)
     print('train losses are', train_losses)
     print('test losses are', test_losses)
     torch.save(flow.state_dict(), 'trained_weights.pt')
